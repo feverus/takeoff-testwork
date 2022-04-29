@@ -1,0 +1,71 @@
+
+GET https://accidental-utopian-tellurium.glitch.me/users
+
+
+###
+
+GET https://accidental-utopian-tellurium.glitch.me/users?login=Mather&password=I-love-c00kie$1
+
+###
+
+POST https://accidental-utopian-tellurium.glitch.me/users HTTP/1.1
+content-type: application/json
+
+{
+    "id": 2,
+    "login": "Dotter",
+    "password": "I-love-c00kie$1",
+    "token": "2_d3u4d983u498dud"
+}
+
+###
+
+PATCH https://accidental-utopian-tellurium.glitch.me/users/0 HTTP/1.1
+content-type: application/json
+
+{
+    "login": "Mather",
+    "password": "I-love-c00kie$1",
+    "token": "0_8938du3j98duu34jd"
+}
+
+###
+
+DELETE https://accidental-utopian-tellurium.glitch.me/users/2 HTTP/1.1
+
+
+###
+
+
+
+
+
+
+
+
+###
+
+GET https://accidental-utopian-tellurium.glitch.me/contacts HTTP/1.1
+
+
+###
+
+GET https://accidental-utopian-tellurium.glitch.me/contacts?token=0_8938du3j98duu34jd HTTP/1.1
+
+###
+
+GET https://accidental-utopian-tellurium.glitch.me/contacts?token=2_d3u4d983u498dud HTTP/1.1
+
+###
+
+POST https://accidental-utopian-tellurium.glitch.me/0_8938du3j98duu34jd HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Сосед напротив",
+    "fio": "Иванов Петр Алибабаевич",
+    "telephone": "+79172000000",
+    "email": "alibaba@mail.com"
+}
+
+
