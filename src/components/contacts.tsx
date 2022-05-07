@@ -1,22 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as I from '../interfaces';
-import {mapStateToProps} from '../store/mapStateToProps';
+import {mapStateToPropsContacts} from '../store/mapStateToProps';
 import {mapDispatchToProps} from '../store/mapDispatchToProps';
+import NavigateButton from './navigate_button';
+import Contact_List from './contact_list';
 
-class Auth_i extends React.Component<I.PropsAll> {		
+
+
+
+type P = I.PropsStateContacts & I.PropsDispaich;
+class Contacts_i extends React.Component<P> {		
+ 
+	firstLoad = () => {     
+		fetch('https://accidental-utopian-tellurium.glitch.me/contacts?token='+this.props.token)
+			.then(res => res.json())
+			.then((result) => {
+                this.props.onGetContacts(result);
+            })
+            .catch(error => this.props.onGetContactsFail(String(error)))
+	}  
+
+	componentDidMount() {
+		this.firstLoad();	
+	}
+
 	render() {
 		console.log(this.props);
-		console.log(this);
+        let status = (this.props.status!=="")? <div>{this.props.status}</div> : "";
 		return (
 			<>
-			контакты
+			контакты<br />
 			
+			<NavigateButton title="Выход" action="logout" />
+
+			<Contact_List />
+
+            {status}
 			</>
-		)
+		) 
+		
 	}
 }
 
 
-const Auth = connect(mapStateToProps("Auth"), mapDispatchToProps)(Auth_i);
-export default Auth;
+const Contacts = connect(mapStateToPropsContacts(), mapDispatchToProps)(Contacts_i);
+export default Contacts;

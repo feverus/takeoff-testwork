@@ -6,7 +6,9 @@ export default function r_contacts(state: Array<I.StateContacts> = initialState.
         case "LOGIN": {
             return state;        
         }
-                 
+        case "GET_CONTACTS": {
+            return action.payload;        
+        }                 
         default: return state;
     }
 }

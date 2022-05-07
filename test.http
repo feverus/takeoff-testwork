@@ -50,22 +50,28 @@ GET https://accidental-utopian-tellurium.glitch.me/contacts HTTP/1.1
 
 ###
 
-GET https://accidental-utopian-tellurium.glitch.me/contacts?token=0_8938du3j98duu34jd HTTP/1.1
+GET https://accidental-utopian-tellurium.glitch.me/contacts?token=1_11111 HTTP/1.1
+
+
 
 ###
 
-GET https://accidental-utopian-tellurium.glitch.me/contacts?token=2_d3u4d983u498dud HTTP/1.1
-
-###
-
-POST https://accidental-utopian-tellurium.glitch.me/0_8938du3j98duu34jd HTTP/1.1
+POST https://accidental-utopian-tellurium.glitch.me/contacts HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Сосед напротив",
-    "fio": "Иванов Петр Алибабаевич",
-    "telephone": "+79172000000",
-    "email": "alibaba@mail.com"
+    "id": "11",
+    "token": "1_11111",
+    "name": "Qonwotejnka",
+    "fio": "Янин Антон Дмитриевич",
+    "telephone": "+79172333435",
+    "email": "Qonwotejnka@mail.com"
 }
 
+###
 
+GET https://accidental-utopian-tellurium.glitch.me/contacts/11 HTTP/1.1
+
+###
+
+DELETE https://accidental-utopian-tellurium.glitch.me/contacts/11 HTTP/1.1

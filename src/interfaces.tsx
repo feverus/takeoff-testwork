@@ -2,26 +2,31 @@
 
 export interface StateSet {
     page: string;
+	status: string;
+	isLoaded: boolean;
+	dialogDeleteContactOpened: boolean;
+	askBeforeDelete: boolean;
 }
 
 export interface StateUser {
-    login?: string;
-    password?: string;   
-    name?: string;
-    token?: string
+    login: string;
+    password: string;   
+    name: string;
+    token: string
 }
 
 export interface StateContacts {
-    name?: string;
-    fio?: string;
-    telephone?: string;
-    email?: string;
+	token: string;
+    name: string;
+    fio: string;
+    telephone: string;
+    email: string;
 }
 
 export interface StateAll {
     set:StateSet;
     user:StateUser;
-    contacts: Array<StateContacts>
+    contacts: Array<StateContacts>;
 }
 
 // экшены
@@ -38,7 +43,7 @@ export interface ActionSet {
 
 export interface ActionContacts {
 	type: string;
-	payload: StateContacts;
+	payload: Array<StateContacts>;
 }
 
 export type ActionAll = ActionUser | ActionSet | ActionContacts;
@@ -50,16 +55,43 @@ export type ActionAll = ActionUser | ActionSet | ActionContacts;
 
 
 
-export interface PropsState {
-	page?: string,
-	name?: string
-	login?: string,
-	password?: string
+export interface PropsStateMain {
+	page: string;
+	name: string;
 }
+export interface PropsStateAuth {
+	login: string;
+	password: string;
+	status: string;
+	token: string;
+}
+export interface PropsStateContacts {
+	status: string;
+	token: string;
+}
+export interface PropsStateContactsList {
+	contacts: Array<StateContacts>;
+	status: string;
+	token: string;
+	isLoaded: boolean;
+	askBeforeDelete: boolean;
+}
+export interface PropsStateDDContacts {
+	open: boolean;
+	askBeforeDelete: boolean;
+}
+
 export interface PropsDispaich {
-	doChangePage: Function,
-	doSetLogin: Function,
-	doSetPassword: Function,
-	enter: Function
+	doSetLogin: Function;
+	doSetPassword: Function;
+	doLogin: Function;
+	doLogout: Function;
+	onLoginFail: Function;
+	onGetContactsFail: Function; 
+	onGetContacts: Function; 
+	doDailogDeleteContactOpen: Function; 	
+	doDailogDeleteContactClose: Function; 	
+	doStopAskBeforeDelete: Function; 	
 }
-export type PropsAll = PropsState & PropsDispaich;
+export type PropsAll = PropsStateMain & PropsStateAuth & PropsStateContacts & PropsStateDDContacts &
+PropsDispaich;

@@ -7,12 +7,18 @@ import * as Contacts from './actions/a_contacts';
 export function mapDispatchToProps() {
 	return function (dispatch: Dispatch) {
 		return {
-			//main
-			doChangePage: bindActionCreators(Set.changePage, dispatch),
 			//auth
 			doSetLogin: bindActionCreators(User.setLogin, dispatch),
 			doSetPassword: bindActionCreators(User.setPassword, dispatch),
-			enter: bindActionCreators(User.enter, dispatch)
+			doLogin: bindActionCreators(User.login, dispatch),
+			doLogout: bindActionCreators(User.logout, dispatch),
+			onLoginFail: bindActionCreators(Set.loginFail, dispatch),
+			onGetContactsFail: bindActionCreators(Set.getContactsFail, dispatch),			
+			onGetContacts: bindActionCreators(Set.getContacts, dispatch),	
+			doDailogDeleteContactOpen: bindActionCreators(Set.dailogDeleteContactOpen, dispatch),	
+			doDailogDeleteContactClose: bindActionCreators(Set.dailogDeleteContactClose, dispatch),	
+			doStopAskBeforeDelete: bindActionCreators(Set.stopAskBeforeDelete, dispatch),	
+
 		}
 	}
 }

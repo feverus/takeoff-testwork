@@ -3,13 +3,13 @@ import * as I from '../../interfaces';
 
 export default function r_user(state: I.StateUser = initialState.user, action: I.ActionUser): I.StateUser {
     switch(action.type) {
-        case "LOGIN": {
+        case "SET_LOGIN": {
             return {...state, login: action.payload.login}   
         }
-        case "PASSWORD": {
+        case "SET_PASSWORD": {
             return {...state, password: action.payload.password}       
         }
-        case "ENTER": {
+        case "LOGIN": {
             return {...state, name: action.payload.name, token: action.payload.token}       
         }
                  
