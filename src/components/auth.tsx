@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as I from './../interfaces';
-import {mapStateToPropsAuth} from '../store/mapStateToProps';
+import {mapStateToPropsAuth as mapStateToProps} from '../store/mapStateToProps';
 import {mapDispatchToProps} from '../store/mapDispatchToProps';
 import NavigateButton from './navigate_button';
 
@@ -57,5 +57,5 @@ class Auth_i extends React.Component<P> {
 }
 
 
-const Auth = connect(mapStateToPropsAuth(), mapDispatchToProps)(Auth_i);
+const Auth = connect(mapStateToProps(), mapDispatchToProps)(Auth_i);
 export default Auth;

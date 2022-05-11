@@ -1,16 +1,22 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as I from '../interfaces';
-import {mapStateToPropsDDContacts} from '../store/mapStateToProps';
+import {mapStateToPropsDialogDeleteContacts as mapStateToProps} from '../store/mapStateToProps';
 import {mapDispatchToProps} from '../store/mapDispatchToProps';
+import deleteContactApi from './deleteContactApi';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
-type P = I.PropsStateDDContacts & I.PropsDispaich & {name:string};
+type P = I.PropsStateDDContacts & I.PropsDispaich & {name:string, id:number};
 class Dialog_Delete_Contact_i extends React.Component<P> {	
+	handleDelete = (id:number) => {
+		deleteContactApi(id);
+		this.props.doDeleteContacts({value:[]},id);
+	}
+
 	render() {		
 		let stAsk = this.props.askBeforeDelete? "flex" : "none";
 		return (
@@ -22,7 +28,7 @@ class Dialog_Delete_Contact_i extends React.Component<P> {
 				aria-describedby="alert-dialog-description"
 			>
 				<DialogTitle id="alert-dialog-title">
-				Удалить контакт {this.props.name}?
+					Удалить контакт {this.props.name}?
 				</DialogTitle>
 				<DialogActions>
 				<Button
@@ -35,9 +41,11 @@ class Dialog_Delete_Contact_i extends React.Component<P> {
 						Больше не спрашивать
 					</Button>
 				<Button
-					onClick={()=>this.props.doDailogDeleteContactClose()}>Отмена</Button>
+					onClick={()=>this.props.doDailogDeleteContactClose()}>
+					Отмена
+				</Button>
 				<Button
-					onClick={()=>this.props.doDailogDeleteContactClose()} autoFocus>
+					onClick={()=>this.handleDelete(this.props.id)} autoFocus>
 					Удалить
 				</Button>
 				</DialogActions>
@@ -48,5 +56,5 @@ class Dialog_Delete_Contact_i extends React.Component<P> {
 }
 
 
-const Dialog_Delete_Contact = connect(mapStateToPropsDDContacts(), mapDispatchToProps)(Dialog_Delete_Contact_i);
+const Dialog_Delete_Contact = connect(mapStateToProps(), mapDispatchToProps)(Dialog_Delete_Contact_i);
 export default Dialog_Delete_Contact;

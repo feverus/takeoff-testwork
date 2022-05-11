@@ -6,6 +6,7 @@ const initialState: I.StateAll = {
 		status: "",
 		isLoaded: false,	
 		dialogDeleteContactOpened: false,	
+		editFormOpened: false,	
 		askBeforeDelete: true,	
 	},
 	user: {

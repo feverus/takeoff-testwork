@@ -8,7 +8,11 @@ export default function r_contacts(state: Array<I.StateContacts> = initialState.
         }
         case "GET_CONTACTS": {
             return action.payload;        
-        }                 
+        }          
+        case "DELETE_CONTACTS": {
+            console.log(action)
+            return state.filter(contact => contact.id!==action.id);        
+        }       
         default: return state;
     }
 }

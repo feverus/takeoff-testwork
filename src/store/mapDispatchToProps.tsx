@@ -17,7 +17,10 @@ export function mapDispatchToProps() {
 			onGetContacts: bindActionCreators(Set.getContacts, dispatch),	
 			doDailogDeleteContactOpen: bindActionCreators(Set.dailogDeleteContactOpen, dispatch),	
 			doDailogDeleteContactClose: bindActionCreators(Set.dailogDeleteContactClose, dispatch),	
-			doStopAskBeforeDelete: bindActionCreators(Set.stopAskBeforeDelete, dispatch),	
+			doStopAskBeforeDelete: bindActionCreators(Set.stopAskBeforeDelete, dispatch),				
+			doEditFormOpen: bindActionCreators(Set.editFormOpen, dispatch),	
+			doEditFormClose: bindActionCreators(Set.editFormClose, dispatch),	
+			doDeleteContacts: bindActionCreators(Contacts.deleteContacts, dispatch),	
 
 		}
 	}

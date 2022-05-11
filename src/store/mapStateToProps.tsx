@@ -37,11 +37,18 @@ export function mapStateToPropsContactsList() {
 		}
 	}
 }
-export function mapStateToPropsDDContacts() {
+export function mapStateToPropsDialogDeleteContacts() {
 	return function (state: I.StateAll):I.PropsStateDDContacts {
 		return {
 			open: state.set.dialogDeleteContactOpened,
 			askBeforeDelete: state.set.askBeforeDelete,
+		}
+	}
+}
+export function mapStateToPropsEditFormContacts() {
+	return function (state: I.StateAll):I.PropsStateEFContacts {
+		return {
+			open: state.set.editFormOpened,
 		}
 	}
 }

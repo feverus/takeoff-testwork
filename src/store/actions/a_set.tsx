@@ -36,3 +36,15 @@ export function stopAskBeforeDelete(value: I.StateSet):I.ActionSet {
 		payload: value
 	}
 }
+export function editFormOpen(value: I.StateSet):I.ActionSet {
+	return {
+		type: "EDIT_FORM_OPENED",
+		payload: value
+	}
+}
+export function editFormClose(value: I.StateSet):I.ActionSet {
+	return {
+		type: "EDIT_FORM_CLOSED",
+		payload: value
+	}
+}

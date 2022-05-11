@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as I from '../interfaces';
-import {mapStateToPropsContacts} from '../store/mapStateToProps';
+import {mapStateToPropsContacts as mapStateToProps} from '../store/mapStateToProps';
 import {mapDispatchToProps} from '../store/mapDispatchToProps';
 import NavigateButton from './navigate_button';
 import Contact_List from './contact_list';
@@ -18,7 +18,7 @@ class Contacts_i extends React.Component<P> {
 			.then((result) => {
                 this.props.onGetContacts(result);
             })
-            .catch(error => this.props.onGetContactsFail(String(error)))
+            .catch(error => this.props.onGetContactsFail({status:String(error)}))
 	}  
 
 	componentDidMount() {
@@ -30,7 +30,6 @@ class Contacts_i extends React.Component<P> {
         let status = (this.props.status!=="")? <div>{this.props.status}</div> : "";
 		return (
 			<>
-			контакты<br />
 			
 			<NavigateButton title="Выход" action="logout" />
 
@@ -44,5 +43,5 @@ class Contacts_i extends React.Component<P> {
 }
 
 
-const Contacts = connect(mapStateToPropsContacts(), mapDispatchToProps)(Contacts_i);
+const Contacts = connect(mapStateToProps(), mapDispatchToProps)(Contacts_i);
 export default Contacts;

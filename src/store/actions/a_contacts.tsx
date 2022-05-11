@@ -12,3 +12,10 @@ export function getContacts(value: I.StateContacts[]):I.ActionContacts {
 		payload: value
 	}
 }
+export function deleteContacts(value: I.StateContacts[], id:number):I.ActionContacts {
+	return {
+		type: "DELETE_CONTACTS",
+		payload: value,
+		id: id
+	}
+}

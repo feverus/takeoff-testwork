@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as I from '../interfaces';
-import {mapStateToPropsAuth} from '../store/mapStateToProps';
+import {mapStateToPropsAuth as mapStateToProps} from '../store/mapStateToProps';
 import {mapDispatchToProps} from '../store/mapDispatchToProps';
 
 import Button from '@mui/material/Button';
@@ -77,5 +77,5 @@ function NavigateButton_i(props:P) {
     }
 }
 
-const NavigateButton = connect(mapStateToPropsAuth(), mapDispatchToProps)(NavigateButton_i);
+const NavigateButton = connect(mapStateToProps(), mapDispatchToProps)(NavigateButton_i);
 export default NavigateButton;
