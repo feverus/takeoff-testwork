@@ -9,12 +9,13 @@ import deleteContactApi from './deleteContactApi';
 import { Typography, Card, CardHeader, CardContent, CardActions, IconButton} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 
 
 type P = I.PropsStateContactsList & I.PropsDispaich & {num:number};
 class Contact_card_i extends React.Component<P> {
-	handleDelete = (id:number) => {
+	handleDelete = (id:string) => {
 		deleteContactApi(id);
 		this.props.doDeleteContacts({value:[]},id);
 	}	
@@ -49,7 +50,13 @@ class Contact_card_i extends React.Component<P> {
 				<CardActions disableSpacing
 					sx={{justifyContent: 'flex-end'}}>
 					<IconButton aria-label="edit"
-						onClick={() => this.props.doEditFormOpen()}>
+						onClick={() => this.props.doEditFormOpen({editFormData:data, editFormId:""})}>
+						<ContentCopyIcon
+							color="primary"
+							/>
+					</IconButton>						
+					<IconButton aria-label="edit"
+						onClick={() => this.props.doEditFormOpen({editFormData:data, editFormId:data.id})}>
 						<EditIcon
 							color="primary"
 							/>

@@ -6,6 +6,8 @@ export interface StateSet {
 	isLoaded: boolean;
 	dialogDeleteContactOpened: boolean;
 	editFormOpened: boolean;
+	editFormData: StateContacts;
+	editFormId: string;
 	askBeforeDelete: boolean;
 }
 
@@ -17,7 +19,7 @@ export interface StateUser {
 }
 
 export interface StateContacts {
-	id:number;
+	id:string;
 	token: string;
     name: string;
     fio: string;
@@ -41,12 +43,14 @@ export interface ActionUser {
 export interface ActionSet {
 	type: string;
 	payload: StateSet;
+	fieldName?: string;
+	fieldValue?: string;
 }
 
 export interface ActionContacts {
 	type: string;
 	payload: Array<StateContacts>;
-	id?: number;
+	id?: string;
 }
 
 
@@ -83,6 +87,8 @@ export interface PropsStateDDContacts {
 }
 export interface PropsStateEFContacts {
 	open: boolean;
+	data: StateContacts;
+	id: string;
 }
 
 export interface PropsDispaich {
@@ -99,6 +105,7 @@ export interface PropsDispaich {
 	doDeleteContacts: Function; 	
 	doEditFormOpen: Function; 	
 	doEditFormClose: Function; 	
+	onEditFormEditField: Function; 	
 }
 export type PropsAll = PropsStateMain & PropsStateAuth & PropsStateContacts & PropsStateContactsList & PropsStateDDContacts & PropsStateEFContacts &
 PropsDispaich;

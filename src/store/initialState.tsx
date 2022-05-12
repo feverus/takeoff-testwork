@@ -7,6 +7,15 @@ const initialState: I.StateAll = {
 		isLoaded: false,	
 		dialogDeleteContactOpened: false,	
 		editFormOpened: false,	
+		editFormData: {
+			id:"",
+			token: "",
+			name: "",
+			fio: "",
+			telephone: "",
+			email: "",
+		},
+		editFormId: "",	
 		askBeforeDelete: true,	
 	},
 	user: {

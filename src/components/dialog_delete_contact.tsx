@@ -10,9 +10,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
-type P = I.PropsStateDDContacts & I.PropsDispaich & {name:string, id:number};
+type P = I.PropsStateDDContacts & I.PropsDispaich & {name:string, id:string};
 class Dialog_Delete_Contact_i extends React.Component<P> {	
-	handleDelete = (id:number) => {
+	handleDelete = (id:string) => {
 		deleteContactApi(id);
 		this.props.doDeleteContacts({value:[]},id);
 	}

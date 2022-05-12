@@ -21,6 +21,7 @@ export function mapDispatchToProps() {
 			doEditFormOpen: bindActionCreators(Set.editFormOpen, dispatch),	
 			doEditFormClose: bindActionCreators(Set.editFormClose, dispatch),	
 			doDeleteContacts: bindActionCreators(Contacts.deleteContacts, dispatch),	
+			onEditFormEditField: bindActionCreators(Set.editFormEditField, dispatch),
 
 		}
 	}

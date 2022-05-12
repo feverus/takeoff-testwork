@@ -49,6 +49,8 @@ export function mapStateToPropsEditFormContacts() {
 	return function (state: I.StateAll):I.PropsStateEFContacts {
 		return {
 			open: state.set.editFormOpened,
+			data: state.set.editFormData,
+			id: state.set.editFormId,			
 		}
 	}
 }

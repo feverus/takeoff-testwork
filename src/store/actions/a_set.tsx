@@ -42,6 +42,14 @@ export function editFormOpen(value: I.StateSet):I.ActionSet {
 		payload: value
 	}
 }
+export function editFormEditField(value: I.StateSet, fieldName: string,	fieldValue: string):I.ActionSet {
+	return {
+		type: "EDIT_FORM_EDIT_FIELD",
+		payload: value,
+		fieldName: fieldName,
+		fieldValue: fieldValue	
+	}
+}
 export function editFormClose(value: I.StateSet):I.ActionSet {
 	return {
 		type: "EDIT_FORM_CLOSED",
