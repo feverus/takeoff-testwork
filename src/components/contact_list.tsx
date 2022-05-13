@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as I from '../interfaces';
 import {mapStateToPropsContactsList as mapStateToProps} from '../store/mapStateToProps';
 import {mapDispatchToProps} from '../store/mapDispatchToProps';
+import Dialog_Delete_Contact from './dialog_delete_contact';
 import Contact_card from "./contact_card";
 import Contact_edit_form from "./contact_edit_form";
 import { Box } from '@mui/material';
@@ -41,6 +42,7 @@ class Contact_List_i extends React.Component<P> {
 					{this.newContact()}
 
 					<Contact_edit_form />
+					<Dialog_Delete_Contact />
 
 					{contacts.map((item,num) => (
 							<Contact_card num={num} key={num}/>

@@ -4,26 +4,38 @@ import { connect } from 'react-redux';
 import {mapStateToPropsEditFormContacts as mapStateToProps} from '../store/mapStateToProps';
 import {mapDispatchToProps} from '../store/mapDispatchToProps';
 import uploadContactApi from './uploadContactApi';
-
-import { Modal, TextField, Box} from '@mui/material';
+import { Modal, TextField, Box, Button} from '@mui/material';
+import DoneIcon from '@mui/icons-material/Done';
+import CancelIcon from '@mui/icons-material/Cancel';
 import NumberFormat from 'react-number-format';
 
 type P = I.PropsStateEFContacts & I.PropsDispaich;
 class Contact_edit_form_i extends React.Component<P> {	
-	handleClose = () => {
-		uploadContactApi("");
+	close = () => {
 		this.props.doEditFormClose();
-	} 
-    handleChange = (fieldName: string,	fieldValue: string) => {
-        
+	}         
+    approve = () => {
+        let status = (this.props.id==="")?"Контакт создан":"Контакт изменен";
+        uploadContactApi(this.props.data, this.props.id)
+        .then(result => {
+            if (typeof result!=='string') {                
+                this.props.doEditContacts(result, this.props.id);                
+                this.props.doEditFormClose();
+                this.props.doSnackbarPush({status:status});
+            } else {
+                this.props.doSnackbarPush({status:"Ошибка создания контакта "+result});
+            }
+        }) 		
+    }         
+    change = (fieldName: string,	fieldValue: string) => {
         this.props.onEditFormEditField({}, fieldName,	fieldValue);
     }
 	render() {
 		let data = this.props.data;
 		return (
-            <Modal
+            <Modal 
                 open={this.props.open}
-                onClose={()=>this.handleClose()}
+                onClose={()=>this.close()}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
@@ -38,42 +50,63 @@ class Contact_edit_form_i extends React.Component<P> {
                     display: 'flex',
                     flexDirection: 'column',
                     p: 4}}>
-        <TextField
-            required
-            label="Имя"
-            value={data.name}
-            margin="normal"
-            onChange={(event)=>this.handleChange("name",event.target.value)}
-        />
-        <TextField
-            required
-            label="ФИО"
-            value={data.fio}
-            margin="normal"
-            onChange={(event)=>this.handleChange("fio",event.target.value)}
-        />
-        <TextField
-            required
-            label="E-mail"
-            value={data.email}
-            margin="normal"
-            onChange={(event)=>this.handleChange("email",event.target.value)}
-            type="email"
-        />
+                        <TextField
+                            required
+                            label="Псевдоним"
+                            value={data.name}
+                            margin="normal"
+                            onChange={(event)=>this.change("name",event.target.value)}
+                        />
+                        <TextField
+                            required
+                            label="ФИО"
+                            value={data.fio}
+                            margin="normal"
+                            onChange={(event)=>this.change("fio",event.target.value)}
+                        />
+                        <TextField
+                            required
+                            label="E-mail"
+                            value={data.email}
+                            margin="normal"
+                            onChange={(event)=>this.change("email",event.target.value)}
+                            type="email"
+                        />
 
-        <NumberFormat customInput={TextField} 
-            required           
-            label="Телефон"
-            value={data.telephone}
-            onChange={(event: { target: { value: string; }; })=>this.handleChange("telephone",event.target.value)}
-            autoComplete="off"
-            thousandSeparator="-"
-            allowNegative={false}
-            format="+# (###) ###-####"
-            mask="_"
-            />
+                        <NumberFormat customInput={TextField} 
+                            required           
+                            label="Телефон"
+                            value={data.telephone}
+                            onChange={(event: { target: { value: string; }; })=>this.change("telephone",event.target.value)}
+                            margin="normal"
+                            autoComplete="off"
+                            thousandSeparator="-"
+                            allowNegative={false}
+                            format="+# (###) ###-####"
+                            mask="_"
+                        />
 
-
+                    <Box
+                        sx={{  
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-evenly'}}>
+                            <Button
+                                onClick={() => this.close()}
+                                variant="contained"
+                                color="error"
+                                sx={{ mt: 2, mb: 1 }}>
+                                <CancelIcon sx={{paddingRight: 2 }}/>
+                                Отмена
+                            </Button>
+                            <Button
+                                onClick={() => this.approve()}
+                                variant="contained"
+                                sx={{ mt: 2, mb: 1 }}>
+                                <DoneIcon sx={{paddingRight: 2 }}/>
+                                Сохранить контакт
+                            </Button>
+                    </Box>
                 </Box>
 
 

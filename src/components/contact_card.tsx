@@ -3,8 +3,6 @@ import * as I from '../interfaces';
 import { connect } from 'react-redux';
 import {mapStateToPropsContactsList as mapStateToProps} from '../store/mapStateToProps';
 import {mapDispatchToProps} from '../store/mapDispatchToProps';
-import Dialog_Delete_Contact from './dialog_delete_contact';
-import Contact_edit_form from "./contact_edit_form";
 import deleteContactApi from './deleteContactApi';
 import { Typography, Card, CardHeader, CardContent, CardActions, IconButton} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -15,10 +13,19 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 type P = I.PropsStateContactsList & I.PropsDispaich & {num:number};
 class Contact_card_i extends React.Component<P> {
-	handleDelete = (id:string) => {
-		deleteContactApi(id);
-		this.props.doDeleteContacts({value:[]},id);
-	}	
+	delete = (id:string) => {
+		deleteContactApi(id)
+		.then(result => {
+			if (result===true) {
+				this.props.doSnackbarPush({status:"Контакт удален"});
+				this.props.doDeleteContacts({value:[]}, id);
+			} else {
+				this.props.doSnackbarPush({status:"Ошибка удаления "+result});
+			}
+		}) 		
+	}
+	
+	
 	render() {
 		let data = this.props.contacts[this.props.num];
 		return (
@@ -62,15 +69,13 @@ class Contact_card_i extends React.Component<P> {
 							/>
 					</IconButton>
 					<IconButton aria-label="delete"
-						onClick={()=>(this.props.askBeforeDelete?this.props.doDailogDeleteContactOpen():this.handleDelete(data.id))}>
+						onClick={()=>(this.props.askBeforeDelete?this.props.doDailogDeleteContactOpen({},data.name, data.id):this.delete(data.id))}>
 						<DeleteForeverIcon 
 							color="warning"
 							/>
 					</IconButton>
 				</CardActions>				
 			</Card>
-
-			<Dialog_Delete_Contact name={data.name} id={data.id}/>
 			</>
 		)
 	}

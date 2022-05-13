@@ -26,7 +26,6 @@ class Contacts_i extends React.Component<P> {
 	}
 
 	render() {
-		console.log(this.props);
         let status = (this.props.status!=="")? <div>{this.props.status}</div> : "";
 		return (
 			<>
@@ -34,8 +33,6 @@ class Contacts_i extends React.Component<P> {
 			<NavigateButton title="Выход" action="logout" />
 
 			<Contact_List />
-
-            {status}
 			</>
 		) 
 		

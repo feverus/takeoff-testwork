@@ -3,6 +3,7 @@
 export interface StateSet {
     page: string;
 	status: string;
+	snackbarOpened: boolean;
 	isLoaded: boolean;
 	dialogDeleteContactOpened: boolean;
 	editFormOpened: boolean;
@@ -45,6 +46,8 @@ export interface ActionSet {
 	payload: StateSet;
 	fieldName?: string;
 	fieldValue?: string;
+	name?: string;
+	id?: string;
 }
 
 export interface ActionContacts {
@@ -84,6 +87,12 @@ export interface PropsStateContactsList {
 export interface PropsStateDDContacts {
 	open: boolean;
 	askBeforeDelete: boolean;
+	name: string;
+	id: string;
+}
+export interface PropsStateSnackbar {
+	open: boolean;
+	message: string;
 }
 export interface PropsStateEFContacts {
 	open: boolean;
@@ -99,12 +108,15 @@ export interface PropsDispaich {
 	onLoginFail: Function;
 	onGetContactsFail: Function; 
 	onGetContacts: Function; 
+	doEditContacts: Function; 
 	doDailogDeleteContactOpen: Function; 	
 	doDailogDeleteContactClose: Function; 	
 	doStopAskBeforeDelete: Function; 	
 	doDeleteContacts: Function; 	
 	doEditFormOpen: Function; 	
 	doEditFormClose: Function; 	
+	onSnackbarClose: Function; 	
+	doSnackbarPush: Function; 	
 	onEditFormEditField: Function; 	
 }
 export type PropsAll = PropsStateMain & PropsStateAuth & PropsStateContacts & PropsStateContactsList & PropsStateDDContacts & PropsStateEFContacts &

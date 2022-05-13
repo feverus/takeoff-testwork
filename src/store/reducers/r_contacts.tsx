@@ -7,10 +7,14 @@ export default function r_contacts(state: Array<I.StateContacts> = initialState.
             return state;        
         }
         case "GET_CONTACTS": {
-            return action.payload;        
+            return action.payload.concat(state);        
         }          
         case "DELETE_CONTACTS": {
             return state.filter(contact => contact.id!==action.id);        
+        }       
+        case "EDIT_CONTACTS": {
+            let newState = state.filter(contact => contact.id!==action.id);
+            return action.payload.concat(newState);        
         }       
         default: return state;
     }

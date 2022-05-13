@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import * as I from './../interfaces';
 import {mapStateToPropsAuth as mapStateToProps} from '../store/mapStateToProps';
 import {mapDispatchToProps} from '../store/mapDispatchToProps';
@@ -46,7 +45,6 @@ class Auth_i extends React.Component<P> {
 							<NavigateButton title="Вход" action="login" />
 							<Box
 								sx={{margin: '10px'}}>
-								{status}
 							</Box>
 						</Paper>
 					</Box>

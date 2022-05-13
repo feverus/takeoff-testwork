@@ -12,16 +12,12 @@ export function getContactsFail(value: I.StateSet):I.ActionSet {
 		payload: value
 	}
 }
-export function getContacts(value: I.StateSet):I.ActionSet {
-	return {
-		type: "GET_CONTACTS",
-		payload: value
-	}
-}
-export function dailogDeleteContactOpen(value: I.StateSet):I.ActionSet {
+export function dailogDeleteContactOpen(value: I.StateSet, name:string, id:string):I.ActionSet {
 	return {
 		type: "DAILOG_DELETE_CONTACT_OPENED",
-		payload: value
+		payload: value,
+		name: name, 
+		id: id
 	}
 }
 export function dailogDeleteContactClose(value: I.StateSet):I.ActionSet {
@@ -53,6 +49,18 @@ export function editFormEditField(value: I.StateSet, fieldName: string,	fieldVal
 export function editFormClose(value: I.StateSet):I.ActionSet {
 	return {
 		type: "EDIT_FORM_CLOSED",
+		payload: value
+	}
+}
+export function snackbarClose(value: I.StateSet):I.ActionSet {
+	return {
+		type: "SNACKBAR_CLOSED",
+		payload: value
+	}
+}
+export function snackbarPush(value: I.StateSet):I.ActionSet {
+	return {
+		type: "SNACKBAR_PUSHED",
 		payload: value
 	}
 }

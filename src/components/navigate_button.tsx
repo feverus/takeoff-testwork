@@ -10,7 +10,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 //авторизация
-function clickLogin(login: string | undefined, password: string | undefined, navigate: Function, doLogin: Function, onLoginFail: Function) {
+function clickLogin(login: string | undefined, password: string | undefined, navigate: Function, doLogin: Function, onLoginFail: Function, doSnackbarPush: Function) {
     let url: string = "https://accidental-utopian-tellurium.glitch.me/users?login="+login+"&password="+password;
     //для теста
     url = "https://accidental-utopian-tellurium.glitch.me/users?login=son&password=123";
@@ -22,9 +22,11 @@ function clickLogin(login: string | undefined, password: string | undefined, nav
             if ((typeof result[0].name==="string") &&
             (typeof result[0].token==="string")) {
                 navigate('contacts');	
+                doSnackbarPush({status:"Здравствуйте, "+result[0].name});
                 doLogin({name: result[0].name, token: result[0].token});
             } 
         } else {
+            doSnackbarPush({status:"Неудачная попытка авторизации."});
             onLoginFail();
         }       
     })
@@ -33,8 +35,9 @@ function clickLogin(login: string | undefined, password: string | undefined, nav
 
 
 //разлогинивание
-function clickLogout(navigate: Function, doLogout: Function) {
+function clickLogout(navigate: Function, doLogout: Function, doSnackbarPush: Function) {
 	navigate('');	
+    doSnackbarPush({status:"До свидания"});
     doLogout();
 }
 //
@@ -51,7 +54,8 @@ function NavigateButton_i(props:P) {
                     props.password,
                     navigate,
                     props.doLogin,
-                    props.onLoginFail
+                    props.onLoginFail,
+                    props.doSnackbarPush
                 )}
                 variant="contained"
                 sx={{ mt: 2, mb: 1 }}>
@@ -64,7 +68,8 @@ function NavigateButton_i(props:P) {
             return(
                 <Button onClick={() => clickLogout(
                     navigate,
-                    props.doLogout
+                    props.doLogout,
+                    props.doSnackbarPush
                 )}
                 variant="contained"
                 sx={{ mt: 2, mb: 1 }}>                    

@@ -12,9 +12,16 @@ import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
 type P = I.PropsStateDDContacts & I.PropsDispaich & {name:string, id:string};
 class Dialog_Delete_Contact_i extends React.Component<P> {	
-	handleDelete = (id:string) => {
-		deleteContactApi(id);
-		this.props.doDeleteContacts({value:[]},id);
+	delete = (id:string) => {
+		deleteContactApi(id)
+		.then(result => {
+			if (result===true) {
+				this.props.doSnackbarPush({status:"Контакт удален"});
+				this.props.doDeleteContacts({value:[]}, id);
+			} else {
+				this.props.doSnackbarPush({status:"Ошибка удаления "+result});
+			}
+		}) 		
 	}
 
 	render() {		
@@ -45,7 +52,7 @@ class Dialog_Delete_Contact_i extends React.Component<P> {
 					Отмена
 				</Button>
 				<Button
-					onClick={()=>this.handleDelete(this.props.id)} autoFocus>
+					onClick={()=>this.delete(this.props.id)} autoFocus>
 					Удалить
 				</Button>
 				</DialogActions>

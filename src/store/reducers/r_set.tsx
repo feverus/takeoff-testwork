@@ -1,5 +1,6 @@
 import initialState from '../initialState';
 import * as I from '../../interfaces';
+import { idText } from 'typescript';
 
 export default function r_set(state: I.StateSet = initialState.set, action: I.ActionSet): I.StateSet {
     console.log(action)
@@ -11,16 +12,20 @@ export default function r_set(state: I.StateSet = initialState.set, action: I.Ac
             return {...state, status: "Неудачная попытка получения контактов. " + action.payload.status};        
         }
         case "LOGIN": {
-            return {...state, page: "contacts", status: ""}       
+            return {...state, page: "contacts"}       
         }
         case "LOGOUT": {
-            return {...state, page: "loginScreen", status: ""}       
+            return {...state, page: "loginScreen"}       
         }
         case "GET_CONTACTS": {
             return {...state, isLoaded: true};        
         } 
         case "DAILOG_DELETE_CONTACT_OPENED": {
-            return {...state, dialogDeleteContactOpened: true};        
+            return {...state,
+                dialogDeleteContactOpened: true,
+                editFormId: String(action.id),
+                editFormData: {...state.editFormData, name: String(action.name)}
+            };       
         } 
         case "DAILOG_DELETE_CONTACT_CLOSED":
         case "DELETE_CONTACTS": {
@@ -33,7 +38,7 @@ export default function r_set(state: I.StateSet = initialState.set, action: I.Ac
             };        
         } 
         case "EDIT_FORM_EDIT_FIELD": {
-            let copy = JSON.parse(JSON.stringify(state));;
+            let copy = JSON.parse(JSON.stringify(state));
             let fieldValue=String(action.fieldValue);
             switch(action.fieldName) {
                 case "name": {copy.editFormData["name"] = fieldValue} break;
@@ -45,6 +50,13 @@ export default function r_set(state: I.StateSet = initialState.set, action: I.Ac
         } 
         case "EDIT_FORM_CLOSED": {
             return {...state, editFormOpened: false};        
+        } 
+        case "SNACKBAR_CLOSED": {
+            return {...state, snackbarOpened: false};        
+        } 
+        case "SNACKBAR_PUSHED": {
+            return {...state, snackbarOpened: true,
+                status:action.payload.status};        
         } 
         case "STOP_ASK_BEFORE_DELETE": {            
             return {...state, askBeforeDelete: false};        

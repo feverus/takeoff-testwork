@@ -42,6 +42,16 @@ export function mapStateToPropsDialogDeleteContacts() {
 		return {
 			open: state.set.dialogDeleteContactOpened,
 			askBeforeDelete: state.set.askBeforeDelete,
+			name: state.set.editFormData.name,
+			id: state.set.editFormId,	
+		}
+	}
+}
+export function mapStateToPropsSnackbar() {
+	return function (state: I.StateAll):I.PropsStateSnackbar {
+		return {
+			open: state.set.snackbarOpened,
+			message: state.set.status,
 		}
 	}
 }

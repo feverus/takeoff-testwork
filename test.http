@@ -59,18 +59,25 @@ GET https://accidental-utopian-tellurium.glitch.me/contacts?token=1_11111 HTTP/1
 POST https://accidental-utopian-tellurium.glitch.me/contacts HTTP/1.1
 content-type: application/json
 
+{"id":"","token":"1_11111","name":"цвцвцйв","fio":"уацуацуац","telephone":"+1 (111) 111-1111","email":"уцацуа"}
+
+###
+
+PATCH https://accidental-utopian-tellurium.glitch.me/contacts/xDXRF8v HTTP/1.1
+content-type: application/json
+
 {
-    "id": "11",
+    "id": "xDXRF8v",
     "token": "1_11111",
     "name": "Qonwotejnka",
-    "fio": "Янин Антон Дмитриевич",
+    "fio": "qqqqqqq",
     "telephone": "+79172333435",
     "email": "Qonwotejnka@mail.com"
 }
 
 ###
 
-GET https://accidental-utopian-tellurium.glitch.me/contacts/11 HTTP/1.1
+GET https://accidental-utopian-tellurium.glitch.me/contacts/xDXRF8v HTTP/1.1
 
 ###
 
