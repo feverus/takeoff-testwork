@@ -52,15 +52,21 @@ export function editFormClose(value: I.StateSet):I.ActionSet {
 		payload: value
 	}
 }
+export function snackbarPush(value: I.StateSet):I.ActionSet {
+	return {
+		type: "SNACKBAR_PUSHED",
+		payload: value
+	}
+}
 export function snackbarClose(value: I.StateSet):I.ActionSet {
 	return {
 		type: "SNACKBAR_CLOSED",
 		payload: value
 	}
 }
-export function snackbarPush(value: I.StateSet):I.ActionSet {
+export function setSearch(value: I.StateSet):I.ActionSet {
 	return {
-		type: "SNACKBAR_PUSHED",
+		type: "SET_SEARCH",
 		payload: value
 	}
 }

@@ -1,6 +1,8 @@
+import urlApi  from './urlApi';
+
 const deleteContactApi = async (id:string): Promise<boolean|string> => {
 	try {
-		const response = await fetch('https://accidental-utopian-tellurium.glitch.me/contacts/'+id, {method: 'DELETE'});
+		const response = await fetch(urlApi+"/contacts/"+id, {method: 'DELETE'});
 		if (response.status===200) {
 			return true;
 		} else {

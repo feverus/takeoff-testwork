@@ -1,7 +1,8 @@
-import * as I from './../interfaces';
+import * as I from '../../interfaces';
+import urlApi  from './urlApi';
 
 const uploadContactApi = async (data:I.StateContacts, id: string): Promise<I.StateContacts|string> => {
-	let url = "https://accidental-utopian-tellurium.glitch.me/contacts";
+	let url = urlApi+"/contacts";
 	let method = "POST";
 	let goodStatus = 201;
 	let copy = JSON.parse(JSON.stringify(data));
@@ -13,7 +14,12 @@ const uploadContactApi = async (data:I.StateContacts, id: string): Promise<I.Sta
 		method = "PATCH";
 		goodStatus = 200;
 	}
-	console.log(JSON.stringify(copy));
+	if (copy.name==="") {
+		return "Безымянный контакт";
+	}
+	if ((copy.fio==="") && (copy.email==="") && (copy.telephone==="")) {
+		return "Контакт без данных";
+	}	
 	try {
 		const response = await fetch(
 			url,

@@ -17,10 +17,10 @@ class Main_i extends React.Component<P> {
 			case "contacts": {
 				return (<><Contacts /><MySnackbar/></>)
 			}
+			default: return (<></>)
 		}	
 	}
 }
-
 
 const Main = connect(mapStateToProps(), mapDispatchToProps)(Main_i);
 export default Main;

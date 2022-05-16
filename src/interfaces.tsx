@@ -3,6 +3,7 @@
 export interface StateSet {
     page: string;
 	status: string;
+	filter: string;
 	snackbarOpened: boolean;
 	isLoaded: boolean;
 	dialogDeleteContactOpened: boolean;
@@ -11,14 +12,12 @@ export interface StateSet {
 	editFormId: string;
 	askBeforeDelete: boolean;
 }
-
 export interface StateUser {
     login: string;
     password: string;   
     name: string;
     token: string
 }
-
 export interface StateContacts {
 	id:string;
 	token: string;
@@ -27,12 +26,20 @@ export interface StateContacts {
     telephone: string;
     email: string;
 }
-
 export interface StateAll {
     set:StateSet;
     user:StateUser;
     contacts: Array<StateContacts>;
 }
+
+
+
+
+
+
+
+
+
 
 // экшены
 
@@ -40,7 +47,6 @@ export interface ActionUser {
 	type: string;
 	payload: StateUser;
 }
-
 export interface ActionSet {
 	type: string;
 	payload: StateSet;
@@ -49,7 +55,6 @@ export interface ActionSet {
 	name?: string;
 	id?: string;
 }
-
 export interface ActionContacts {
 	type: string;
 	payload: Array<StateContacts>;
@@ -59,29 +64,34 @@ export interface ActionContacts {
 
 
 
-//props для map
 
 
+
+
+
+
+
+//props для mapStateToProps
 
 export interface PropsStateMain {
 	page: string;
-	name: string;
 }
 export interface PropsStateAuth {
 	login: string;
 	password: string;
-	status: string;
-	token: string;
 }
 export interface PropsStateContacts {
-	status: string;
 	token: string;
+	name: string;
 }
 export interface PropsStateContactsList {
 	contacts: Array<StateContacts>;
-	status: string;
+	filter: string;
 	token: string;
 	isLoaded: boolean;
+}
+export interface PropsStateContactsCard {
+	contacts: Array<StateContacts>;
 	askBeforeDelete: boolean;
 }
 export interface PropsStateDDContacts {
@@ -99,6 +109,19 @@ export interface PropsStateEFContacts {
 	data: StateContacts;
 	id: string;
 }
+export interface PropsStateSearchInput {
+	filter: string;
+}
+
+
+
+
+
+
+
+
+
+//функции для mapDispatchToProps
 
 export interface PropsDispaich {
 	doSetLogin: Function;
@@ -118,6 +141,5 @@ export interface PropsDispaich {
 	onSnackbarClose: Function; 	
 	doSnackbarPush: Function; 	
 	onEditFormEditField: Function; 	
+	doSetSearch: Function; 	
 }
-export type PropsAll = PropsStateMain & PropsStateAuth & PropsStateContacts & PropsStateContactsList & PropsStateDDContacts & PropsStateEFContacts &
-PropsDispaich;

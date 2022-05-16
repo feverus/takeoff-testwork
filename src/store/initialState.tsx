@@ -4,6 +4,7 @@ const initialState: I.StateAll = {
 	set: {
 		page: "loginScreen",
 		status: "",
+		filter: "",
 		snackbarOpened: false,
 		isLoaded: false,	
 		dialogDeleteContactOpened: false,	

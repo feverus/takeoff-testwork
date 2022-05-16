@@ -1,15 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Snackbar} from '@mui/material';
+import Slide, { SlideProps } from '@mui/material/Slide';
 import * as I from './../interfaces';
 import {mapStateToPropsSnackbar as mapStateToProps} from '../store/mapStateToProps';
 import {mapDispatchToProps} from '../store/mapDispatchToProps';
-import { Snackbar} from '@mui/material';
-import Slide, { SlideProps } from '@mui/material/Slide';
 
 function SlideTransition(props: SlideProps) {
     return <Slide {...props} direction="up" />;
 }
-
   
 type P = I.PropsStateSnackbar & I.PropsDispaich;
 class Snackbar_i extends React.Component<P> {	
@@ -25,7 +24,6 @@ class Snackbar_i extends React.Component<P> {
     	)
     }
 }
-
 
 const MySnackbar = connect(mapStateToProps(), mapDispatchToProps)(Snackbar_i);
 export default MySnackbar;

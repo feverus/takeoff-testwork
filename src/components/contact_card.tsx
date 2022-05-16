@@ -1,17 +1,17 @@
 import React from 'react';
-import * as I from '../interfaces';
 import { connect } from 'react-redux';
-import {mapStateToPropsContactsList as mapStateToProps} from '../store/mapStateToProps';
-import {mapDispatchToProps} from '../store/mapDispatchToProps';
-import deleteContactApi from './deleteContactApi';
-import { Typography, Card, CardHeader, CardContent, CardActions, IconButton} from '@mui/material';
+import { Typography, Card, CardHeader, CardContent, CardActions, IconButton, Tooltip, Box} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import * as I from '../interfaces';
+import {mapStateToPropsContactsCard as mapStateToProps} from '../store/mapStateToProps';
+import {mapDispatchToProps} from '../store/mapDispatchToProps';
+import deleteContactApi from './api/deleteContactApi';
 
 
 
-type P = I.PropsStateContactsList & I.PropsDispaich & {num:number};
+type P = I.PropsStateContactsCard & I.PropsDispaich & {data:I.StateContacts};
 class Contact_card_i extends React.Component<P> {
 	delete = (id:string) => {
 		deleteContactApi(id)
@@ -24,59 +24,70 @@ class Contact_card_i extends React.Component<P> {
 			}
 		}) 		
 	}
-	
-	
 	render() {
-		let data = this.props.contacts[this.props.num];
+		let data = this.props.data;
 		return (
-			<>
 			<Card
 				elevation={4}
-				sx={{ width: '90%', margin: '10px'}}>
+				sx={{ width: '90%', margin: '10px', backgroundColor: '#2080d030'}}>
 				<CardHeader
-					sx={{paddingBottom:0}}
-					title={data.id+': '+data.name}
-					subheader={data.fio}
+					sx={{paddingBottom: 0, backgroundColor: '#2080d030'}}
+					title={data.name}
+					subheader={(data.fio==="")?"Не указано":data.fio}
 				/>
 				<CardContent
 					sx={{paddingBottom:0}}>
-				<Typography
-					component="div"
-					variant="body2"
-					color="text.primary"
-					>
-					E-mail: {data.email}
-				</Typography>
-				<Typography
-					component="div"
-					variant="body2"
-					color="text.primary">
-					Телефон: {data.telephone}
-				</Typography>
+					<Typography
+						component="div"
+						variant="body2"
+						color="text.primary"
+						sx={{display: (data.email==="")?'none':'block'}}
+						>
+						E-mail: {data.email}
+					</Typography>
+					<Typography
+						component="div"
+						variant="body2"
+						sx={{display: (data.telephone==="")?'none':'block'}}
+						>					
+						Телефон: {data.telephone}
+					</Typography>
 				</CardContent>
 				<CardActions disableSpacing
-					sx={{justifyContent: 'flex-end'}}>
-					<IconButton aria-label="edit"
-						onClick={() => this.props.doEditFormOpen({editFormData:data, editFormId:""})}>
-						<ContentCopyIcon
-							color="primary"
-							/>
-					</IconButton>						
-					<IconButton aria-label="edit"
-						onClick={() => this.props.doEditFormOpen({editFormData:data, editFormId:data.id})}>
-						<EditIcon
-							color="primary"
-							/>
-					</IconButton>
-					<IconButton aria-label="delete"
-						onClick={()=>(this.props.askBeforeDelete?this.props.doDailogDeleteContactOpen({},data.name, data.id):this.delete(data.id))}>
-						<DeleteForeverIcon 
-							color="warning"
-							/>
-					</IconButton>
+					sx={{justifyContent: 'space-between'}}>
+					<Box
+						sx={{justifyContent: 'flex-start', opacity: '0.3', ml: 1}}>
+						{"id: " + data.id}
+					</Box>
+					<Box
+						sx={{justifyContent: 'flex-end'}}>
+						<Tooltip title="Копировать контакт" arrow>
+							<IconButton aria-label="edit"
+								onClick={() => this.props.doEditFormOpen({editFormData:data, editFormId:""})}>
+								<ContentCopyIcon
+									color="primary"
+									/>
+							</IconButton>	
+						</Tooltip>
+						<Tooltip title="Редактировать контакт" arrow>
+							<IconButton aria-label="edit"
+								onClick={() => this.props.doEditFormOpen({editFormData:data, editFormId:data.id})}>
+								<EditIcon
+									color="primary"
+									/>
+							</IconButton>
+						</Tooltip>
+						<Tooltip title="Удалить контакт" arrow>
+							<IconButton aria-label="delete"
+								onClick={()=>(this.props.askBeforeDelete?this.props.doDailogDeleteContactOpen({},data.name, data.id):this.delete(data.id))}>
+								<DeleteForeverIcon 
+									color="warning"
+									/>
+							</IconButton>
+						</Tooltip>
+					</Box>
 				</CardActions>				
 			</Card>
-			</>
 		)
 	}
 }

@@ -4,7 +4,6 @@ export function mapStateToPropsMain() {
 	return function (state: I.StateAll):I.PropsStateMain {
 		return {
 			page: state.set.page,
-			name: state.user.name
 		}
 	}
 }
@@ -12,27 +11,32 @@ export function mapStateToPropsAuth() {
 	return function (state: I.StateAll):I.PropsStateAuth {
 		return {
 			login: state.user.login,
-			password: state.user.password, 
-			status: state.set.status,
-			token: state.user.token,
+			password: state.user.password,
 		}
 	}
 }
 export function mapStateToPropsContacts() {
 	return function (state: I.StateAll):I.PropsStateContacts {
 		return {
-			status: state.set.status,
 			token: state.user.token,
+			name: state.user.name,
 		}
 	}
 }
 export function mapStateToPropsContactsList() {
 	return function (state: I.StateAll):I.PropsStateContactsList {
 		return {
-			contacts: state.contacts,
-			status: state.set.status,
+			contacts: state.contacts,			
+			filter: state.set.filter,
 			token: state.user.token,
 			isLoaded: state.set.isLoaded,
+		}
+	}
+}
+export function mapStateToPropsContactsCard() {
+	return function (state: I.StateAll):I.PropsStateContactsCard {
+		return {
+			contacts: state.contacts,
 			askBeforeDelete: state.set.askBeforeDelete,
 		}
 	}
@@ -61,6 +65,13 @@ export function mapStateToPropsEditFormContacts() {
 			open: state.set.editFormOpened,
 			data: state.set.editFormData,
 			id: state.set.editFormId,			
+		}
+	}
+}
+export function mapStateToPropsSearch() {
+	return function (state: I.StateAll):I.PropsStateSearchInput {
+		return {
+			filter: state.set.filter,		
 		}
 	}
 }
