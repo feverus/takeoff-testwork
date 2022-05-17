@@ -4,6 +4,12 @@ https://docs.google.com/document/d/1PFafdSZ2PcQLRtAyotvIupDmpGZ_6DnN9Q1kk0ogJm4/
 В проекте для имитации работы бэкенда используется typicode/json-server, развернутый на:
 https://accidental-utopian-tellurium.glitch.me
 
+Здесь можно посмотреть логин/пароль для авторизации в проекте
+
+https://accidental-utopian-tellurium.glitch.me/users
+
+Например, можете использовать son / 123
+
 Сервис "засыпает" после неиспользования, поэтому первый запуск приложеня может занять прау минут.
 Рабочая версия node v17.2.0, проект создан с Create React App.
 Запустить приложение можно разными способами.
