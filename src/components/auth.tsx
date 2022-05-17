@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {Container, TextField, Box, Paper, Typography} from '@mui/material';
@@ -5,14 +6,36 @@ import * as I from './../interfaces';
 import {mapStateToPropsAuth as mapStateToProps} from '../store/mapStateToProps';
 import {mapDispatchToProps} from '../store/mapDispatchToProps';
 import NavigateButton from './navigate_button';
-import { useEffect } from 'react';
+
+import IconButton from '@mui/material/IconButton';
+import FilledInput from '@mui/material/FilledInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+interface StateShowPassword {
+	showPassword: boolean;
+}
 
 type P = I.PropsStateAuth & I.PropsDispaich;
 function Auth_i(props:P) {	
 	const navigate  = useNavigate();
+	//для "редиректа" с /contacts/ на главную приложения в режиме отладки
 	if (window.location.pathname!=='/takeoff/') {
 		navigate('/takeoff/');		
 		props.doSnackbarPush({status:"В доступе отказано. Необходима авторизация."});		
+	}
+	//не стал добавлять видимость/маскировку пароля в store, т.к. она гарантированно нигде больше не нужна, кроме одного поля ввода
+	const [values, setValues] = React.useState<StateShowPassword>({
+		showPassword: false,
+	})
+	const handleClickShowPassword = () => {
+		setValues({
+			...values,
+			showPassword: !values.showPassword,
+		})
 	}
 	return (
 		<Container maxWidth="xs">
@@ -31,6 +54,7 @@ function Auth_i(props:P) {
 						elevation={4}
 						sx={{display: 'flex',flexDirection: 'column',alignItems: 'center',minWidth: '300px', bgcolor: '#2080d010'}}>
 						<TextField
+							sx={{ width: '25ch' }}
 							value={props.login}
 							onChange={(event)=>props.doSetLogin({login:event.target.value})} 
 							id="filled-login-input"
@@ -39,15 +63,32 @@ function Auth_i(props:P) {
 							variant="filled"
 							margin="normal"
 							autoFocus />
-						<TextField
-							value={props.password}
-							onChange={(event)=>props.doSetPassword({password:event.target.value})} 
-							id="filled-password-input"
-							label="Пароль"
-							type="password"
-							autoComplete="current-password"
-							variant="filled"
-							margin="normal"/>
+        <FormControl
+			sx={{ width: '25ch' }}
+			variant="filled"
+			margin="normal">
+        	<InputLabel>
+				Пароль
+			</InputLabel>
+        	<FilledInput
+				type={values.showPassword ? 'text' : 'password'}
+				value={props.password}
+				onChange={(event)=>props.doSetPassword({password:event.target.value})} 
+				endAdornment={
+					<InputAdornment position="end">
+						<IconButton
+							aria-label="toggle password visibility"
+							onClick={handleClickShowPassword}
+							edge="end"
+						>
+						{values.showPassword ? <VisibilityOff /> : <Visibility />}
+						</IconButton>
+					</InputAdornment>
+				}
+        	/>
+        </FormControl>
+
+
 						<NavigateButton title="Вход" action="login" />
 						<Box
 							sx={{margin: '10px'}}>
